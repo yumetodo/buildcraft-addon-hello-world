@@ -20,11 +20,12 @@ buildscript {
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id "de.undercouch.download" version "4.1.1"
 }
 
 // These settings allow you to choose what version of Java you want to be compatible with. Forge 1.7.10 runs on Java 6 to 8.
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 apply plugin: 'forge'
 
@@ -78,6 +79,15 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 task devJar(type: Jar) {
     classifier = "dev"
     from sourceSets.main.output
+}
+
+task downloadFile(type: Download) {
+    src ([
+        'https://mod-buildcraft.com/releases/BuildCraft/7.1.23/buildcraft-7.1.23-dev.jar',
+        'https://mod-buildcraft.com/releases/BuildCraft/7.1.23/buildcraft-7.1.23.jar'
+    ])
+    dest 'libs'
+    overwrite false
 }
 
 // Creates the listed artifacts on building the mod.

@@ -26,3 +26,8 @@ eclipse
 .vscode/
 bin/
 .classpath
+
+# other
+
+libs/buildcraft-7.1.23.jar
+libs/buildcraft-7.1.23-dev.jar
