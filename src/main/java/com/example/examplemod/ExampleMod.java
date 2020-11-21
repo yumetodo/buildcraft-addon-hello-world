@@ -4,7 +4,7 @@ import net.minecraft.init.Blocks;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-
+import buildcraft.BuildCraftCore;
 @Mod(modid = ExampleMod.MODID, version = ExampleMod.VERSION)
 public class ExampleMod
 {
@@ -16,5 +16,6 @@ public class ExampleMod
     {
         // some example code
         System.out.println("DIRT BLOCK >> "+Blocks.dirt.getUnlocalizedName());
+        System.out.println("BC Wrench >> "+BuildCraftCore.wrenchItem.getUnlocalizedName());
     }
 }
