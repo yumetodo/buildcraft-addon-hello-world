@@ -37,7 +37,7 @@ public class NonReversedShapedRecipe {
 
 		HashMap<Character, ItemStack> hashmap;
 
-		for (hashmap = new HashMap<Character, ItemStack>(); i < params.length; i += 2) {
+		for (hashmap = new HashMap<>(); i < params.length; i += 2) {
 			Character character = (Character) params[i];
 			ItemStack itemstack1 = null;
 
