@@ -1,6 +1,6 @@
 package com.example.examplemod;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
@@ -34,33 +34,22 @@ public class NonReversedShapedRecipe {
 		}
 		String s = sb.toString();
 
-		HashMap<Character, ItemStack> hashmap;
+		ArrayList<Character> keys = new ArrayList<>(params.length - i);
+		ArrayList<ItemStack> values = new ArrayList<>(params.length - i);
 
-		for (hashmap = new HashMap<>(); i < params.length; i += 2) {
-			Character character = (Character) params[i];
-			ItemStack itemstack1 = null;
-
-			if (params[i + 1] instanceof Item) {
-				itemstack1 = new ItemStack((Item) params[i + 1]);
-			} else if (params[i + 1] instanceof Block) {
-				itemstack1 = new ItemStack((Block) params[i + 1], 1, 32767);
-			} else if (params[i + 1] instanceof ItemStack) {
-				itemstack1 = (ItemStack) params[i + 1];
-			}
-
-			hashmap.put(character, itemstack1);
+		for (; i < params.length; i += 2) {
+			keys.add((Character) params[i]);
+			values.add(params[i + 1] instanceof Item ? new ItemStack((Item) params[i + 1])
+					: params[i + 1] instanceof Block ? new ItemStack((Block) params[i + 1], 1, 32767)
+							: params[i + 1] instanceof ItemStack ? (ItemStack) params[i + 1] : null);
 		}
 
 		ItemStack[] aitemstack = new ItemStack[col * row];
 
 		for (int i1 = 0; i1 < col * row; ++i1) {
 			char c0 = s.charAt(i1);
-
-			if (hashmap.containsKey(Character.valueOf(c0))) {
-				aitemstack[i1] = ((ItemStack) hashmap.get(Character.valueOf(c0))).copy();
-			} else {
-				aitemstack[i1] = null;
-			}
+			int index = keys.indexOf(c0);
+			aitemstack[i1] = index == -1 ? values.get(index).copy() : null;
 		}
 
 		ShapedRecipes shapedrecipes = new ShapedRecipes(col, row, aitemstack, output) {
