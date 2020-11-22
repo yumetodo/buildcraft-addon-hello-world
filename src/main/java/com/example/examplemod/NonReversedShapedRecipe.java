@@ -83,7 +83,7 @@ public class NonReversedShapedRecipe {
 				return false;
 			}
 
-			private boolean checkMatch(InventoryCrafting inv, int i, int j, boolean p_77573_4_) {
+			private boolean checkMatch(InventoryCrafting inv, int i, int j, boolean invert) {
 				for (int k = 0; k < 3; ++k) {
 					for (int l = 0; l < 3; ++l) {
 						int i1 = k - i;
@@ -91,7 +91,7 @@ public class NonReversedShapedRecipe {
 						ItemStack itemstack = null;
 
 						if (i1 >= 0 && j1 >= 0 && i1 < this.recipeWidth && j1 < this.recipeHeight) {
-							if (p_77573_4_) {
+							if (invert) {
 								itemstack = this.recipeItems[this.recipeWidth - i1 - 1 + j1 * this.recipeWidth];
 							} else {
 								itemstack = this.recipeItems[i1 + j1 * this.recipeWidth];
