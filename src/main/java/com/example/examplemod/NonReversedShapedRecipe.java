@@ -12,28 +12,27 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class NonReversedShapedRecipe {
 	public static ShapedRecipes addShapedRecipe(ItemStack output, Object... params) {
-		String s = "";
 		int i = 0;
-		int j = 0;
-		int k = 0;
+		int col = 0;
+		int row = 0;
+		StringBuilder sb = new StringBuilder();
 
 		if (params[i] instanceof String[]) {
 			String[] astring = (String[]) ((String[]) params[i++]);
-
-			for (int l = 0; l < astring.length; ++l) {
-				String s1 = astring[l];
-				++k;
-				j = s1.length();
-				s = s + s1;
+			for (String str : astring) {
+				col = str.length();
+				sb.append(str);
 			}
+			row = astring.length;
 		} else {
 			while (params[i] instanceof String) {
 				String s2 = (String) params[i++];
-				++k;
-				j = s2.length();
-				s = s + s2;
+				++row;
+				col = s2.length();
+				sb.append(s2);
 			}
 		}
+		String s = sb.toString();
 
 		HashMap<Character, ItemStack> hashmap;
 
@@ -52,9 +51,9 @@ public class NonReversedShapedRecipe {
 			hashmap.put(character, itemstack1);
 		}
 
-		ItemStack[] aitemstack = new ItemStack[j * k];
+		ItemStack[] aitemstack = new ItemStack[col * row];
 
-		for (int i1 = 0; i1 < j * k; ++i1) {
+		for (int i1 = 0; i1 < col * row; ++i1) {
 			char c0 = s.charAt(i1);
 
 			if (hashmap.containsKey(Character.valueOf(c0))) {
@@ -64,14 +63,14 @@ public class NonReversedShapedRecipe {
 			}
 		}
 
-		ShapedRecipes shapedrecipes = new ShapedRecipes(j, k, aitemstack, output) {
+		ShapedRecipes shapedrecipes = new ShapedRecipes(col, row, aitemstack, output) {
 			@Override
 			public boolean matches(InventoryCrafting inv, World worldIn) {
 				for (int i = 0; i <= 3 - this.recipeWidth; ++i) {
 					for (int j = 0; j <= 3 - this.recipeHeight; ++j) {
 						// When you uncomment this, you can get vanilla's behavior.
 						// if (this.checkMatch(inv, i, j, true)) {
-						// 	return true;
+						// return true;
 						// }
 
 						if (this.checkMatch(inv, i, j, false)) {
